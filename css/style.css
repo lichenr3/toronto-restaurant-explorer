@@ -1,0 +1,70 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f4f7f6;
+    text-align: center;
+    color: #333;
+}
+
+h1 { margin-bottom: 10px; }
+.filters-container { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; flex-wrap: wrap; }
+.filter-group { display: flex; align-items: center; gap: 8px; }
+.filter-group label { font-size: 14px; font-weight: 500; }
+.filter-group select { padding: 8px; border: 1px solid #ccc; border-radius: 6px; background-color: white; font-size: 14px; }
+
+.main-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+#map-container {
+    width: 900px;
+    height: 600px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    position: relative;
+}
+
+#minimap-container {
+    width: 200px;
+    height: 150px;
+    border: 1px solid #999;
+    border-radius: 4px;
+}
+
+.neighbourhood {
+    fill: #e9e9e9;
+    stroke: #ccc;
+    stroke-width: 0.5px;
+    transition: fill 0.2s ease;
+}
+.neighbourhood:hover { fill: #d9d9d9; }
+
+.restaurant {
+    fill-opacity: 0.7;
+    stroke: rgba(0,0,0,0.3);
+    stroke-width: 0.5px;
+    transition: transform 0.2s ease, fill 0.2s ease;
+}
+.restaurant:hover { transform: scale(1.5); stroke-width: 1px; fill-opacity: 1; }
+
+#tooltip {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 13px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: left;
+    /* --- 这就是关键的修复 --- */
+    pointer-events: none; 
+}
+.hidden { display: none; }
+
+.brush .selection {
+    fill: #777;
+    fill-opacity: 0.3;
+    stroke: #fff;
+}

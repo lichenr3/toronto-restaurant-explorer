@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toronto Restaurant Explorer</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Toronto Restaurant Explorer</h1>
+
+    <div class="filters-container">
+        <!-- Filter controls remain the same -->
+        <div class="filter-group">
+            <label for="status-filter">Dinesafe Status:</label>
+            <select id="status-filter">
+                <option value="all">All</option>
+                <option value="Pass">Pass</option>
+                <option value="Conditional Pass">Conditional Pass</option>
+                <option value="Closed">Closed</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="rating-filter">Yelp Rating ≥</label>
+            <select id="rating-filter">
+                <option value="0">All</option>
+                <option value="4.5">4.5 Stars</option>
+                <option value="4.0">4.0 Stars</option>
+                <option value="3.5">3.5 Stars</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="price-filter">Price Range:</label>
+            <select id="price-filter">
+                <option value="all">All</option>
+                <option value="Under $10">$ (Under $10)</option>
+                <option value="$11-30">$$ ($11-30)</option>
+                <option value="$31-60">$$$ ($31-60)</option>
+                <option value="Over $61">$$$$ (Over $61)</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Main container for both maps -->
+    <div class="main-container">
+        <div id="map-container"></div>
+        <div id="minimap-container"></div>
+    </div>
+    
+    <div id="tooltip" class="hidden"></div>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
