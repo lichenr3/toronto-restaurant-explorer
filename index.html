@@ -3,16 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toronto Restaurant Explorer</title>
+    <title>DineSafe Explorer - Toronto Restaurant Health Inspection</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Toronto Restaurant Explorer</h1>
+    <!-- Website Header -->
+    <header class="site-header">
+        <div class="header-content">
+            <!-- Header content will go here -->
+        </div>
+    </header>
+
+    <!-- Page Layout Container -->
+    <div class="page-layout">
+        <!-- Left Sidebar -->
+        <aside class="left-sidebar">
+            <div class="sidebar-content">
+                <!-- Left sidebar content -->
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            
+    <h1>🏥 DineSafe Explorer</h1>
+    <p class="subtitle">Explore Toronto Restaurant Health Inspection Data</p>
 
     <div class="filters-container">
-        <!-- Filter controls remain the same -->
+        <!-- Filter controls -->
         <div class="filter-group">
-            <label for="status-filter">Dinesafe Status:</label>
+            <label for="status-filter">Inspection Status:</label>
             <select id="status-filter">
                 <option value="all">All</option>
                 <option value="Pass">Pass</option>
@@ -21,35 +41,153 @@
             </select>
         </div>
         <div class="filter-group">
-            <label for="rating-filter">Yelp Rating ≥</label>
-            <select id="rating-filter">
-                <option value="0">All</option>
-                <option value="4.5">4.5 Stars</option>
-                <option value="4.0">4.0 Stars</option>
-                <option value="3.5">3.5 Stars</option>
+            <label for="health-grade-filter">Health Grade:</label>
+            <select id="health-grade-filter">
+                <option value="all">All Grades</option>
+                <option value="A">A - Excellent</option>
+                <option value="B">B - Good</option>
+                <option value="C">C - Fair</option>
+                <option value="D">D - Poor</option>
             </select>
         </div>
         <div class="filter-group">
-            <label for="price-filter">Price Range:</label>
-            <select id="price-filter">
-                <option value="all">All</option>
-                <option value="Under $10">$ (Under $10)</option>
-                <option value="$11-30">$$ ($11-30)</option>
-                <option value="$31-60">$$$ ($31-60)</option>
-                <option value="Over $61">$$$$ (Over $61)</option>
+            <label for="cuisine-filter">Establishment Type:</label>
+            <select id="cuisine-filter">
+                <option value="all">All Types</option>
+                <option value="Restaurant">Restaurant</option>
+                <option value="Food Take Out">Food Take Out</option>
+                <option value="Food Store (Convenience/Variety)">Convenience Store</option>
+                <option value="Food Court Vendor">Food Court</option>
+                <option value="Supermarket">Supermarket</option>
+                <option value="Bakery">Bakery</option>
+                <option value="Food Caterer">Catering</option>
+                <option value="Banquet Facility">Banquet Hall</option>
+                <option value="Butcher Shop">Butcher Shop</option>
+                <option value="other">Other Types</option>
             </select>
+        </div>
+        <div class="filter-group">
+            <label for="severity-filter">Worst Infraction:</label>
+            <select id="severity-filter">
+                <option value="all">All</option>
+                <option value="clean">Clean (No Infractions)</option>
+                <option value="M">Minor Issues Only</option>
+                <option value="S">Has Significant Issues</option>
+                <option value="C">Has Crucial Issues</option>
+            </select>
+        </div>
+        <div class="filter-group checkbox-group">
+            <label>
+                <input type="checkbox" id="show-dots" checked>
+                <span>Show Establishments</span>
+            </label>
+        </div>
+        <div class="filter-group">
+            <button class="reset-btn" id="reset-btn" onclick="resetToAllData()">
+                Show All
+            </button>
         </div>
     </div>
 
     <!-- Main container for both maps -->
     <div class="main-container">
-        <div id="map-container"></div>
-        <div id="minimap-container"></div>
+        <div id="map-container">
+            <div class="map-instruction">
+                👆 Click neighbourhood | 🖱️ Scroll to zoom | 🖐️ Drag to pan | 🖱️🖱️ Double-click to reset
+            </div>
+            <div id="minimap-container"></div>
+        </div>
+    </div>
+    
+    <!-- Statistics Panel Below Map -->
+    <div id="stats-panel" class="stats-panel hidden">
+        <button class="close-stats-btn" onclick="closeStatsPanel()">✕</button>
+        
+        <div class="stats-header">
+            <h2 id="stats-neighbourhood-name">Neighbourhood Statistics</h2>
+        </div>
+        
+        <div class="stats-content">
+            <!-- Left: Key Metrics -->
+            <div class="stats-metrics">
+                <div class="metric-card">
+                    <div class="metric-label">Total Establishments</div>
+                    <div class="metric-value" id="stats-total">0</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Average Health Score</div>
+                    <div class="metric-value" id="stats-health">0</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Health Grade Distribution</div>
+                    <div class="metric-value" id="stats-rating">0</div>
+                </div>
+            </div>
+            
+            <!-- Right: Charts -->
+            <div class="stats-charts">
+                <div class="chart-container">
+                    <h3>Inspection Count Timeline</h3>
+                    <svg id="status-chart" width="320" height="240"></svg>
+                </div>
+                <div class="chart-container">
+                    <h3>Health Grade Distribution</h3>
+                    <svg id="health-grade-chart" width="320" height="240"></svg>
+                </div>
+                <div class="chart-container">
+                    <h3>Infraction Severity Types</h3>
+                    <div class="donut-chart-wrapper">
+                        <div class="donut-chart-top">
+                            <svg id="cuisine-chart" width="280" height="160"></svg>
+                        </div>
+                        <div class="donut-chart-legend" id="cuisine-legend">
+                            <!-- Legend will be dynamically generated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stats-footer">
+            <button class="view-details-btn" id="view-details-btn">
+                📋 View Detailed Inspection Records
+            </button>
+        </div>
     </div>
     
     <div id="tooltip" class="hidden"></div>
 
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="right-sidebar">
+            <div class="sidebar-content">
+                <!-- Right sidebar content -->
+            </div>
+        </aside>
+    </div>
+
+    <!-- Website Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <!-- Footer content -->
+        </div>
+    </footer>
+
+    <!-- D3.js library -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <!-- Our modules (load in dependency order) -->
+    <script src="js/dataLoader.js"></script>
+    <script src="js/charts.js"></script>
+    
+    <!-- Map modules (modular structure) -->
+    <script src="js/mapState.js"></script>
+    <script src="js/tooltip.js"></script>
+    <script src="js/miniMap.js"></script>
+    <script src="js/mainMap.js"></script>
+    <script src="js/map.js"></script>
+    
     <script src="js/script.js"></script>
 </body>
 </html>

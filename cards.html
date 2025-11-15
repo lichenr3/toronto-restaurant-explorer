@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Cards - Toronto Explorer</title>
+    <link rel="stylesheet" href="css/card_style.css">
+    <!-- D3.js Library -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <!-- Website Header -->
+    <header class="site-header">
+        <div class="header-content">
+            <!-- Header content -->
+        </div>
+    </header>
+
+    <!-- Page Layout Container -->
+    <div class="page-layout">
+        <!-- Left Sidebar -->
+        <aside class="left-sidebar">
+            <div class="sidebar-content">
+                <!-- Left sidebar content -->
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+
+    <div class="header">
+        <h1 id="page-title">Restaurant Results</h1>
+    </div>
+
+    <!-- Filters Container -->
+    <div class="filters-container" id="filters-container">
+        <div class="filter-group restaurant-type-filter">
+            <label for="type-filter">Restaurant Type:</label>
+            <select id="type-filter">
+                <option value="all">All Restaurant Types</option>
+                <!-- Options will be populated by JavaScript -->
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="sort-filter">Sort by:</label>
+            <select id="sort-filter">
+                <option value="name">Name (A-Z)</option>
+                <option value="healthScore">Health Score (High to Low)</option>
+                <option value="yelpRating">Yelp Rating (High to Low)</option>
+            </select>
+        </div>
+        <div class="filter-group checkbox-group">
+            <label>
+                <input type="checkbox" id="yelp-only-filter">
+                <span>Only show restaurants with Yelp reviews</span>
+            </label>
+        </div>
+    </div>
+
+    <div class="card-container" id="cards">
+        <!-- Cards will be dynamically generated here -->
+    </div>
+
+    <div class="pagination" id="pagination">
+        <!-- Pagination controls will be generated here -->
+    </div>
+
+    <div class="footer">
+        <button class="back-button" onclick="history.back()">Back to Map</button>
+    </div>
+
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="right-sidebar">
+            <div class="sidebar-content">
+                <!-- Right sidebar content -->
+            </div>
+        </aside>
+    </div>
+
+    <!-- Website Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <!-- Footer content -->
+        </div>
+    </footer>
+
+    <!-- Load cards module -->
+    <script src="js/cards.js"></script>
+
+</body>
+</html>
